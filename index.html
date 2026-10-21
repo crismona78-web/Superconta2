@@ -10,6 +10,8 @@
   --bg:#f3f0ff;--surface:#ffffff;--surface2:#ebe7fb;--ink:#211a47;--muted:#625b8c;--line:#d6cff0;
   --ta:#d9480f;--ta-soft:#ffe6d9;--on-ta:#ffffff;
   --tb:#087f7c;--tb-soft:#d5f5f1;--on-tb:#ffffff;
+  --tm:#b3205a;--tm-soft:#ffe0ec;--on-tm:#ffffff;
+  --tl:#1f5fd0;--tl-soft:#dbe8ff;--on-tl:#ffffff;
   --brand:#4a3fd1;--brand-deep:#2f2796;--on-brand:#ffffff;
   --gold:#ffc93c;--on-gold:#3a2a00;
   --ok:#1b8a4c;--ok-soft:#d9f4e3;--bad:#c93044;
@@ -22,6 +24,8 @@
     --bg:#15122e;--surface:#211c47;--surface2:#2b2559;--ink:#f1eeff;--muted:#aaa3d6;--line:#3b3472;
     --ta:#ff8a4c;--ta-soft:#4a2616;--on-ta:#2a1100;
     --tb:#2fd4c8;--tb-soft:#0f3d3d;--on-tb:#03201f;
+    --tm:#ff7aa8;--tm-soft:#4a1630;--on-tm:#2a0612;
+    --tl:#7fb0ff;--tl-soft:#11284d;--on-tl:#04142e;
     --brand:#9b90ff;--brand-deep:#5a4dd0;--on-brand:#17123a;
     --gold:#ffd65c;--on-gold:#3a2a00;
     --ok:#4fd98a;--ok-soft:#173d2a;--bad:#ff7084;--dots:rgba(155,144,255,.12);
@@ -32,6 +36,8 @@
   --bg:#15122e;--surface:#211c47;--surface2:#2b2559;--ink:#f1eeff;--muted:#aaa3d6;--line:#3b3472;
   --ta:#ff8a4c;--ta-soft:#4a2616;--on-ta:#2a1100;
   --tb:#2fd4c8;--tb-soft:#0f3d3d;--on-tb:#03201f;
+  --tm:#ff7aa8;--tm-soft:#4a1630;--on-tm:#2a0612;
+  --tl:#7fb0ff;--tl-soft:#11284d;--on-tl:#04142e;
   --brand:#9b90ff;--brand-deep:#5a4dd0;--on-brand:#17123a;
   --gold:#ffd65c;--on-gold:#3a2a00;
   --ok:#4fd98a;--ok-soft:#173d2a;--bad:#ff7084;--dots:rgba(155,144,255,.12);
@@ -44,6 +50,8 @@ body{margin:0;background-color:var(--bg);background-image:radial-gradient(var(--
 .wrap{max-width:980px;margin:0 auto;display:flex;flex-direction:column;gap:18px;min-width:0;}
 .t0{--tc:var(--ta);--ts:var(--ta-soft);--on:var(--on-ta);}
 .t1{--tc:var(--tb);--ts:var(--tb-soft);--on:var(--on-tb);}
+.t2{--tc:var(--tm);--ts:var(--tm-soft);--on:var(--on-tm);}
+.t3{--tc:var(--tl);--ts:var(--tl-soft);--on:var(--on-tl);}
 
 /* capçalera */
 .top{display:flex;align-items:center;gap:14px;}
@@ -73,22 +81,34 @@ h2{font:800 clamp(1.5rem,3.4vw,2.1rem)/1.15 var(--display);margin:0;text-wrap:ba
 .setup-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px;}
 .field label{display:block;font-weight:800;font-size:.9rem;margin-bottom:6px;}
 .field input,.field select{width:100%;font:800 1.15rem var(--body);padding:13px 14px;border-radius:14px;background:var(--surface2);color:var(--ink);border:3px solid var(--line);}
-.field.t0 input{border-color:var(--ta);} .field.t1 input{border-color:var(--tb);}
-.field.t0 label{color:var(--ta);} .field.t1 label{color:var(--tb);}
+.field.t0 input,.field.t1 input,.field.t2 input,.field.t3 input{border-color:var(--tc);}
+.field.t0 label,.field.t1 label,.field.t2 label,.field.t3 label{color:var(--tc);}
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
+.count{display:flex;gap:12px;margin-top:18px;}
+.num{flex:1;min-width:60px;max-width:120px;height:72px;font:800 2.1rem var(--display);border-radius:18px;background:var(--surface);color:var(--ink);border:3px solid var(--line);box-shadow:0 5px 0 var(--line);cursor:pointer;transition:transform .08s,box-shadow .08s;}
+.num:hover{border-color:var(--brand);transform:translateY(-2px);}
+.num:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line);}
+.num.sel{background:var(--brand);color:var(--on-brand);border-color:var(--brand-deep);box-shadow:0 5px 0 var(--brand-deep);}
+.num:focus-visible{outline:3px solid var(--brand);outline-offset:3px;}
 .rules{list-style:none;margin:22px 0 0;padding:18px 20px;background:var(--surface2);border-radius:18px;display:grid;gap:10px;font-weight:700;}
 .rules li{display:flex;gap:12px;align-items:baseline;}
 .rules li::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--gold);flex-shrink:0;transform:translateY(1px);}
 .note{color:var(--muted);font-size:.85rem;font-weight:700;margin:10px 0 0;}
 
 /* marcador */
-.board{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.board{display:grid;gap:14px;grid-template-columns:1fr 1fr;}
+.board.n1{grid-template-columns:1fr;}
+.board.n3{grid-template-columns:repeat(3,1fr);}
+.board.n4{grid-template-columns:repeat(4,1fr);}
 .team{position:relative;border-radius:22px;padding:14px 20px 12px;background:var(--ts);border:3px solid var(--tc);color:var(--ink);display:grid;grid-template-columns:1fr auto;grid-template-areas:"n s" "p s";align-items:center;column-gap:12px;transition:transform .2s,background .2s;min-width:0;}
 .team .tn{grid-area:n;font:800 clamp(1rem,2.4vw,1.35rem)/1.15 var(--display);overflow-wrap:anywhere;}
 .team .ts{grid-area:s;font:800 clamp(2.2rem,6vw,3.6rem)/1 var(--display);font-variant-numeric:tabular-nums;}
 .team .tp{grid-area:p;font:800 .8rem var(--body);letter-spacing:.06em;text-transform:uppercase;min-height:1.4em;}
 .team.on{background:var(--tc);color:var(--on);transform:translateY(-3px) scale(1.02);box-shadow:0 7px 0 rgba(0,0,0,.18);}
 .team.win{background:var(--tc);color:var(--on);}
+.team.out{opacity:.45;}
+.board.n3 .team,.board.n4 .team{grid-template-columns:1fr;grid-template-areas:"n" "s" "p";text-align:center;row-gap:2px;padding:12px 10px;}
+.board.n3 .team .ts,.board.n4 .team .ts{font-size:clamp(2rem,4.6vw,3rem);}
 .gain{position:absolute;right:14px;top:-16px;background:var(--gold);color:var(--on-gold);font:800 1.3rem var(--display);padding:3px 14px;border-radius:999px;animation:rise 1.4s ease forwards;pointer-events:none;}
 @keyframes rise{0%{transform:translateY(14px) scale(.6);opacity:0;}20%{transform:translateY(0) scale(1.1);opacity:1;}80%{opacity:1;}100%{transform:translateY(-20px);opacity:0;}}
 
@@ -136,12 +156,16 @@ h2{font:800 clamp(1.5rem,3.4vw,2.1rem)/1.15 var(--display);margin:0;text-wrap:ba
 .gains div{border-radius:18px;padding:14px;background:var(--ts);border:3px solid var(--tc);font-weight:800;}
 .gains b{display:block;font:800 2rem/1.1 var(--display);}
 .big{font:800 clamp(2rem,6vw,3.6rem)/1.05 var(--display);margin:0;text-wrap:balance;}
+.rank{display:grid;gap:8px;width:100%;max-width:480px;}
+.rank div{display:flex;gap:10px;align-items:baseline;background:var(--ts);border:3px solid var(--tc);border-radius:14px;padding:8px 14px;font-weight:800;text-align:left;}
+.rank b{margin-left:auto;font:800 1.3rem var(--display);}
 #confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:30;}
 @media (max-width:560px){
-  .setup-grid,.opts,.gains{grid-template-columns:1fr;}
+  .setup-grid,.opts,.gains{grid-template-columns:1fr!important;}
   .bal{grid-template-columns:1fr;gap:18px;}
   .side,.side.r{padding:0;border-left:0;}
   .board{gap:8px;}
+  .board.n3,.board.n4{grid-template-columns:1fr 1fr;}
   .team{padding:10px 12px;}
   .gain{right:8px;}
 }
@@ -168,10 +192,18 @@ h2{font:800 clamp(1.5rem,3.4vw,2.1rem)/1.15 var(--display);margin:0;text-wrap:ba
   <!-- CONFIGURACIÓ -->
   <section class="card" id="v-setup">
     <p class="eyebrow">Abans de començar</p>
-    <h2>Preparem els dos equips</h2>
+    <h2>Quants equips jugueu?</h2>
+    <div class="count" role="group" aria-label="Nombre d'equips">
+      <button type="button" class="num" data-act="n" data-v="1" aria-pressed="false">1</button>
+      <button type="button" class="num sel" data-act="n" data-v="2" aria-pressed="true">2</button>
+      <button type="button" class="num" data-act="n" data-v="3" aria-pressed="false">3</button>
+      <button type="button" class="num" data-act="n" data-v="4" aria-pressed="false">4</button>
+    </div>
     <div class="setup-grid">
-      <div class="field t0"><label for="in-n0">Equip 1</label><input id="in-n0" type="text" maxlength="18" value="Equip Taronja" autocomplete="off"></div>
-      <div class="field t1"><label for="in-n1">Equip 2</label><input id="in-n1" type="text" maxlength="18" value="Equip Turquesa" autocomplete="off"></div>
+      <div class="field t0" id="f0"><label for="in-n0">Equip 1</label><input id="in-n0" type="text" maxlength="18" value="Equip Taronja" autocomplete="off"></div>
+      <div class="field t1" id="f1"><label for="in-n1">Equip 2</label><input id="in-n1" type="text" maxlength="18" value="Equip Turquesa" autocomplete="off"></div>
+      <div class="field t2" id="f2" hidden><label for="in-n2">Equip 3</label><input id="in-n2" type="text" maxlength="18" value="Equip Maduixa" autocomplete="off"></div>
+      <div class="field t3" id="f3" hidden><label for="in-n3">Equip 4</label><input id="in-n3" type="text" maxlength="18" value="Equip Blau" autocomplete="off"></div>
     </div>
     <p class="note">Trieu un nom d'equip inventat. No cal posar noms de persones.</p>
     <div class="opts">
@@ -181,11 +213,11 @@ h2{font:800 clamp(1.5rem,3.4vw,2.1rem)/1.15 var(--display);margin:0;text-wrap:ba
         <select id="in-plan"><option value="12" selected>Fase 1 i Fase 2</option><option value="1">Només Fase 1 · Masses</option><option value="2">Només Fase 2 · Comptes</option></select></div>
     </div>
     <ul class="rules">
-      <li>Els equips es van alternant. Quan et toca, tens una sola oportunitat.</li>
+      <li id="rule-turn">Els torns es van alternant. Quan et toca, tens una sola oportunitat.</li>
       <li>Fase 1: classifiqueu l'element a la seva massa patrimonial. Encert: 10 punts.</li>
       <li>Fase 2: trieu els comptes que intervenen en l'operació. Encert: 20 punts.</li>
-      <li>Si falleu, el torn rebota a l'altre equip, que pot robar la meitat dels punts.</li>
-      <li>Sempre comença l'Equip 1. Guanya l'equip amb més punts.</li>
+      <li id="rule-rb"></li>
+      <li id="rule-end"></li>
     </ul>
     <div class="row" style="margin-top:24px;"><button class="btn" type="button" data-act="start">Comença el duel</button></div>
   </section>
@@ -323,23 +355,26 @@ const PHASE_NAMES = {1:"Fase 1 · Masses patrimonials", 2:"Fase 2 · Operacions 
 const MASS_LEFT = ["Actiu no corrent","Actiu corrent"];
 const MASS_RIGHT = ["Patrimoni net","Passiu no corrent","Passiu corrent"];
 const seen = {1:new Set(), 2:new Set()};
-const S = {names:["",""], per:8, plan:[1,2], pi:0, phase:1, ids:[], order:[], qi:0, total:0,
-  first:0, tcount:0, scores:[0,0], phaseStart:[0,0], owner:0, stage:'ask', elim:new Set(), sel:new Set(),
-  tb:false, pop:null, winner:-1, won:0, failedBy:-1};
+const MAXTRY = 3; // intents màxims per pregunta: l'equip que respon + 2 rebots
+const S = {n:2, names:["","","",""], per:8, plan:[1,2], pi:0, phase:1, ids:[], order:[], qi:0, total:0,
+  first:0, tcount:0, scores:[0,0,0,0], phaseStart:[0,0,0,0], pool:[0,1], own:0, att:0, stage:'ask', elim:new Set(), sel:new Set(),
+  tb:false, pop:null, winner:-1, won:0};
 
 function show(v){
   ['setup','game','inter','final'].forEach(k=>{ $('v-'+k).hidden = k!==v; });
   $('board').hidden = v==='setup';
 }
-const activeTeam = () => S.stage==='ask' ? S.owner : S.stage==='steal' ? 1-S.owner : -1;
-const pts = () => S.stage==='steal' ? BASE[S.phase]/2 : BASE[S.phase];
+const maxTry = () => Math.min(S.pool.length, MAXTRY);
+const activeTeam = () => S.stage==='done' ? -1 : S.pool[(S.own + S.att) % S.pool.length];
+const pts = () => S.att===0 ? BASE[S.phase] : BASE[S.phase]/2;
 
-function renderBoard(act, winner){
+function renderBoard(act, win){
+  $('board').className = 'board n'+S.n;
   let h='';
-  for(let i=0;i<2;i++){
-    const on = act===i, w = winner===i;
-    const pill = on ? (S.stage==='ask' ? "Et toca!" : "Pot robar!") : (w ? "Guanyadors!" : "");
-    h += `<div class="team t${i}${on?' on':''}${w?' win':''}"><span class="tn">${esc(S.names[i])}</span><span class="ts">${S.scores[i]}</span><span class="tp">${pill}</span>`;
+  for(let i=0;i<S.n;i++){
+    const on = act===i, w = win.includes(i), out = S.tb && !S.pool.includes(i);
+    const pill = on ? (S.att===0 ? "Et toca!" : "Pot robar!") : (w ? "Guanyadors!" : "");
+    h += `<div class="team t${i}${on?' on':''}${w?' win':''}${out?' out':''}"><span class="tn">${esc(S.names[i])}</span><span class="ts">${S.scores[i]}</span><span class="tp">${pill}</span>`;
     if(S.pop && S.pop.team===i) h += `<span class="gain">+${S.pop.pts}</span>`;
     h += `</div>`;
   }
@@ -349,35 +384,40 @@ function renderBoard(act, winner){
 
 /* ---------- FLUX ---------- */
 function startGame(){
-  const n0 = $('in-n0').value.trim() || "Equip 1";
-  let n1 = $('in-n1').value.trim() || "Equip 2";
-  if(n1.toLowerCase()===n0.toLowerCase()) n1 += " (2)";
-  S.names=[n0,n1];
+  const names=[];
+  for(let i=0;i<S.n;i++){
+    let nm = $('in-n'+i).value.trim() || ("Equip "+(i+1));
+    if(names.some(x=>x.toLowerCase()===nm.toLowerCase())) nm += ` (${i+1})`;
+    names.push(nm);
+  }
+  S.names=names;
   S.per = Number($('in-per').value);
   S.plan = $('in-plan').value.split('').map(Number);
   resetMatch();
 }
 function resetMatch(){
-  S.scores=[0,0]; S.first=0; S.tcount=0; S.pi=0; S.tb=false;
+  S.scores=Array(S.n).fill(0); S.pool=[...Array(S.n).keys()]; S.first=0; S.tcount=0; S.pi=0; S.tb=false;
   beginPhase();
 }
 function beginPhase(){
-  S.phase = S.plan[S.pi]; S.tb=false; S.phaseStart=[...S.scores];
+  S.phase = S.plan[S.pi]; S.tb=false; S.pool=[...Array(S.n).keys()]; S.phaseStart=[...S.scores];
   S.ids = pick(S.per, (S.phase===1?DATA:OPS).map((_,i)=>i), seen[S.phase]);
   S.total=S.ids.length; S.qi=0; nextQ();
 }
 function beginTiebreak(){
-  S.tb=true; S.phase=2; S.phaseStart=[...S.scores];
-  S.ids = pick(2, OPS.map((_,i)=>i), seen[2]); S.total=2; S.qi=0; nextQ();
+  const mx=Math.max(...S.scores);
+  S.pool = S.scores.map((s,i)=>s===mx?i:-1).filter(i=>i>=0); // només juguen els equips empatats
+  S.tb=true; S.phase=2; S.phaseStart=[...S.scores]; S.tcount=0;
+  S.ids = pick(Math.max(2,S.pool.length), OPS.map((_,i)=>i), seen[2]); S.total=S.ids.length; S.qi=0; nextQ();
 }
 function nextQ(){
   if(S.qi>=S.total){ endPhase(); return; }
-  S.owner = (S.first + S.tcount) % 2; S.tcount++;
+  S.own = (S.first + S.tcount) % S.pool.length; S.tcount++; S.att=0;
   S.stage='ask'; S.elim=new Set(); S.sel=new Set(); S.winner=-1; S.won=0;
   S.order = S.phase===2 ? [...OPS[S.ids[S.qi]].opts].sort((a,b)=>a-b) : [];
   show('game'); renderAll();
 }
-function renderAll(){ renderBoard(activeTeam(), -1); renderGame(); }
+function renderAll(){ renderBoard(activeTeam(), []); renderGame(); }
 
 function massBtn(m, done, correct){
   const el = S.elim.has(m), right = done && m===correct;
@@ -391,10 +431,11 @@ function renderGame(){
   h += `<div class="dots">` + Array.from({length:S.total},(_,i)=>`<i class="${(i<S.qi||(i===S.qi&&done))?'d':i===S.qi?'c':''}"></i>`).join('') + `</div>`;
 
   if(S.stage==='ask'){
-    h += `<div class="turn t${S.owner}"><span>Torn de <b>${esc(S.names[S.owner])}</b></span><span class="worth">+${pts()} si l'encerta</span></div>`;
+    const t=activeTeam();
+    h += `<div class="turn t${t}"><span>Torn de <b>${esc(S.names[t])}</b></span><span class="worth">+${pts()} si l'encerta</span></div>`;
   } else if(S.stage==='steal'){
-    const o=1-S.owner;
-    h += `<div class="turn t${o} steal"><span><b>Rebot!</b> ${esc(S.names[S.owner])} ha fallat. <b>${esc(S.names[o])}</b> pot robar els punts.</span><span class="worth">+${pts()}</span></div>`;
+    const t=activeTeam(), prev=S.pool[(S.own+S.att-1)%S.pool.length], lastChance=S.att===maxTry()-1;
+    h += `<div class="turn t${t} steal"><span><b>Rebot!</b> ${esc(S.names[prev])} ha fallat. <b>${esc(S.names[t])}</b> pot robar els punts${lastChance?'. Última oportunitat!':'.'}</span><span class="worth">+${pts()}</span></div>`;
   }
   h += `<p class="qtext">${esc(ph===1?DATA[id][0]:op.t)}</p>`;
 
@@ -419,7 +460,7 @@ function renderGame(){
     if(S.winner>=0){
       h += `<div class="verdict yes"><span class="vt">Encertat! ${esc(S.names[S.winner])} suma +${S.won}</span>${correctTxt}</div>`;
     } else {
-      h += `<div class="verdict none"><span class="vt">Ningú l'ha encertat</span>${correctTxt}</div>`;
+      h += `<div class="verdict none"><span class="vt">${S.pool.length>1?"Ningú l'ha encertat":"Aquesta no ha sortit"}</span>${correctTxt}</div>`;
     }
     h += `<div class="actions"><button class="btn" type="button" data-act="next">${S.qi===S.total-1?'Acabar la fase':'Següent pregunta'} →</button></div>`;
   }
@@ -436,35 +477,47 @@ function resolve(ok){
   const team = activeTeam();
   if(ok){
     const p = pts(); S.scores[team]+=p; S.pop={team,pts:p}; S.winner=team; S.won=p; S.stage='done'; sfx('ok');
-  } else if(S.stage==='ask'){
-    S.stage='steal'; S.sel=new Set(); sfx('bad');
   } else {
-    S.stage='done'; S.winner=-1; sfx('bad');
+    S.att++; S.sel=new Set(); sfx('bad');
+    if(S.att>=maxTry()){ S.stage='done'; S.winner=-1; } else S.stage='steal';
   }
   renderAll();
 }
 
+function leaders(){ const mx=Math.max(...S.scores); return S.scores.map((s,i)=>s===mx?i:-1).filter(i=>i>=0); }
+const joinNames = L => { const a=L.map(i=>esc(S.names[i])); return a.length>1 ? a.slice(0,-1).join(', ')+' i '+a[a.length-1] : a[0]; };
 function endPhase(){
   const last = S.pi >= S.plan.length-1;
   if(S.tb || last){ showFinal(); return; }
-  const g=[S.scores[0]-S.phaseStart[0], S.scores[1]-S.phaseStart[1]];
-  const lead = S.scores[0]===S.scores[1] ? "Empat a punts. Tot per decidir!" : `Va al davant ${esc(S.names[S.scores[0]>S.scores[1]?0:1])}.`;
+  const g=S.scores.map((s,i)=>s-S.phaseStart[i]);
+  const L=leaders();
+  const lead = S.n===1 ? `Porteu ${S.scores[0]} punts.` : L.length===S.n ? "Empat a punts. Tot per decidir!" : L.length>1 ? `Van al davant, empatats: ${joinNames(L)}.` : `Va al davant ${esc(S.names[L[0]])}.`;
   $('v-inter').innerHTML = `<p class="eyebrow">Final de la Fase ${S.phase}</p><h2>Fase superada!</h2>
-    <div class="gains">${[0,1].map(i=>`<div class="t${i}">${esc(S.names[i])}<b>+${g[i]}</b>punts en aquesta fase</div>`).join('')}</div>
+    <div class="gains" style="grid-template-columns:repeat(${S.n},1fr)">${S.scores.map((_,i)=>`<div class="t${i}">${esc(S.names[i])}<b>+${g[i]}</b>punts en aquesta fase</div>`).join('')}</div>
     <p style="font-weight:800;margin:4px 0 0;">${lead}</p>
     <p class="note" style="margin:0;">Ara toca la Fase ${S.plan[S.pi+1]}: ${S.plan[S.pi+1]===2?'reconèixer els comptes d\'una operació. Cada encert val 20 punts.':'classificar elements. Cada encert val 10 punts.'}</p>
     <button class="btn" type="button" data-act="nextphase">Passem a la Fase ${S.plan[S.pi+1]} →</button>`;
-  show('inter'); renderBoard(-1,-1);
+  show('inter'); renderBoard(-1,[]);
 }
 function showFinal(){
-  const [a,b]=S.scores, tie=a===b, w = a>b?0:1;
-  renderBoard(-1, tie?-1:w);
-  $('v-final').innerHTML = tie
-    ? `<p class="eyebrow">Resultat final</p><p class="big">Empat a ${a} punts!</p><p style="font-weight:700;margin:0;">Dos equips igual de bons. Voleu desempatar amb 2 preguntes més?</p>
-       <div class="row"><button class="btn" type="button" data-act="tie">Ronda de desempat</button><button class="btn sec" type="button" data-act="again">Torna a jugar</button></div>`
-    : `<p class="eyebrow">Resultat final</p><p class="big">Guanya ${esc(S.names[w])}!</p>
-       <p style="font-weight:800;font-size:1.2rem;margin:0;">${S.scores[w]} punts contra ${S.scores[1-w]}. Una diferència de ${Math.abs(a-b)}.</p>
+  const L=leaders(), n=S.n, mx=S.scores[L[0]], tie=n>1 && L.length>1;
+  const order=S.scores.map((_,i)=>i).sort((a,b)=>S.scores[b]-S.scores[a]);
+  const rank = n>1 ? `<div class="rank">${order.map((i,p)=>`<div class="t${i}"><span>${p+1}.</span><span>${esc(S.names[i])}</span><b>${S.scores[i]}</b></div>`).join('')}</div>` : '';
+  renderBoard(-1, (n>1 && !tie) ? L : []);
+  let h;
+  if(n===1){
+    h = `<p class="eyebrow">Resultat final</p><p class="big">Heu fet ${mx} punts!</p><p style="font-weight:700;margin:0;">Torneu-ho a provar per superar la vostra marca.</p>
+       <div class="row"><button class="btn" type="button" data-act="again">Torna a jugar</button><button class="btn sec" type="button" data-act="setup">Canvia la configuració</button></div>`;
+  } else if(tie){
+    h = `<p class="eyebrow">Resultat final</p><p class="big">Empat a ${mx} punts!</p><p style="font-weight:700;margin:0;">${joinNames(L)} estan igualats. Voleu desempatar amb ${Math.max(2,L.length)} preguntes més?</p>${rank}
+       <div class="row"><button class="btn" type="button" data-act="tie">Ronda de desempat</button><button class="btn sec" type="button" data-act="again">Torna a jugar</button></div>`;
+  } else {
+    const w=order[0];
+    h = `<p class="eyebrow">Resultat final</p><p class="big">Guanya ${esc(S.names[w])}!</p>
+       <p style="font-weight:800;font-size:1.2rem;margin:0;">${S.scores[w]} punts, ${S.scores[w]-S.scores[order[1]]} més que el segon equip.</p>${rank}
        <div class="row"><button class="btn" type="button" data-act="again">Revenja amb els mateixos equips</button><button class="btn sec" type="button" data-act="setup">Canvia els equips</button></div>`;
+  }
+  $('v-final').innerHTML = h;
   show('final');
   if(!tie){ sfx('win'); confetti(); }
 }
@@ -481,10 +534,23 @@ function confetti(){
   })();
 }
 
+/* ---------- CONFIGURACIÓ ---------- */
+function setN(n){
+  S.n=n;
+  document.querySelectorAll('.num').forEach(b=>{ const on=Number(b.dataset.v)===n; b.classList.toggle('sel',on); b.setAttribute('aria-pressed',String(on)); });
+  for(let i=0;i<4;i++) $('f'+i).hidden = i>=n;
+  $('rule-turn').hidden = n===1;
+  $('rule-rb').textContent = n===1 ? "Jugueu sols: cada pregunta té una sola oportunitat."
+    : n===2 ? "Si l'equip falla, el torn rebota a l'altre, que pot robar la meitat dels punts."
+    : "Si l'equip falla, el torn rebota al següent i, si tampoc l'encerta, a un tercer. Cada rebot val la meitat dels punts. Si ningú l'encerta, es mostra la resposta i es passa a la pregunta següent.";
+  $('rule-end').textContent = n===1 ? "Intenteu fer el màxim de punts possible." : "Sempre comença l'Equip 1 i els torns van girant. Guanya l'equip amb més punts.";
+}
+
 /* ---------- ACCIONS (un sol listener al document) ---------- */
 function act(a,v){
   if(a==='start') startGame();
   else if(a==='mute'){ muted=!muted; $('btn-mute').textContent = muted?'So: no':'So: sí'; }
+  else if(a==='n') setN(Number(v));
   else if(a==='mass'){
     if(S.stage==='done') return;
     const ok = v===DATA[S.ids[S.qi]][1];
@@ -509,6 +575,7 @@ function act(a,v){
   else if(a==='again') resetMatch();
   else if(a==='setup') show('setup');
 }
+setN(2);
 document.addEventListener('click',e=>{
   const b = e.target.closest ? e.target.closest('[data-act]') : null;
   if(b && !b.disabled) act(b.dataset.act, b.dataset.v);
